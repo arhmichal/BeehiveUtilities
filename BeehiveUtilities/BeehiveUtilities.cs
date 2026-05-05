@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace BeehiveUtilities
 {
-    [BepInPlugin("smallo.mods.beehiveutilities", "Beehive Utilities", "1.1.0")]
+    [BepInPlugin("smallo.mods.beehiveutilities", "Beehive Utilities", "1.1.0.1")]
     [HarmonyPatch]
     class BeehiveUtilitiesPlugin : BaseUnityPlugin
     {
@@ -75,7 +75,7 @@ namespace BeehiveUtilities
 
             if (!nightCheck.Value) return;
 
-            if (!EnvMan.instance.IsDaylight())
+            if (!EnvMan.IsDaylight())
             {
                 character.Message(MessageHud.MessageType.Center, "");
             }
@@ -89,7 +89,7 @@ namespace BeehiveUtilities
             if (proxCheck.Value) __instance.m_maxCover = 1000f;
             if (maxHoney.Value != __instance.m_maxHoney) __instance.m_maxHoney = maxHoney.Value;
             if (creationTime != __instance.m_secPerUnit) __instance.m_secPerUnit = creationTime;
-            if (biomeCheck.Value) __instance.m_biome = Heightmap.Biome.BiomesMax;
+            if (biomeCheck.Value) __instance.m_biome = Heightmap.Biome.All;
         }
 
         [HarmonyPostfix]
@@ -110,7 +110,7 @@ namespace BeehiveUtilities
                 string status;
                 if (!__instance.CheckBiome()) status = "<color=red>$piece_beehive_area</color>";
                 else if (!__instance.HaveFreeSpace()) status = "<color=red>$piece_beehive_freespace</color>";
-                else if (!EnvMan.instance.IsDaylight() && !nightCheck.Value) status = "<color=yellow>$piece_beehive_sleep</color>";
+                else if (!EnvMan.IsDaylight() && !nightCheck.Value) status = "<color=yellow>$piece_beehive_sleep</color>";
                 else status = "<color=lime>$piece_beehive_happy</color>";
 
                 result = result.Replace(LocaliseString(statusToReplace), "");
