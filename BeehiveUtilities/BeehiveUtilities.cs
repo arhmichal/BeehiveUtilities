@@ -6,10 +6,11 @@ using UnityEngine;
 
 namespace BeehiveUtilities
 {
-    [BepInPlugin("smallo.mods.beehiveutilities", "Beehive Utilities", "1.1.0.1")]
+    [BepInPlugin("smallo.mods.beehiveutilities", "Beehive Utilities", Version)]
     [HarmonyPatch]
     class BeehiveUtilitiesPlugin : BaseUnityPlugin
     {
+        public const string Version = "1.1.0.1";
         private static ConfigEntry<bool> enableMod;
         private static ConfigEntry<bool> proxCheck;
         private static ConfigEntry<bool> showAlternateText;
@@ -67,7 +68,7 @@ namespace BeehiveUtilities
         [HarmonyPatch(typeof(Beehive), "Interact")]
         public static void BeehiveInteract_Patch(Humanoid character, bool repeat, Beehive __instance)
         {
-            if (beeStatus.Value) 
+            if (beeStatus.Value)
             {
                 character.Message(MessageHud.MessageType.Center, "");
                 return;

@@ -1,83 +1,61 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F070453F-A62D-4FA2-8BAB-64B29BFA0EAD}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BeehiveUtilities</RootNamespace>
+    <TargetFramework>net48</TargetFramework>
     <AssemblyName>BeehiveUtilities</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <RootNamespace>BeehiveUtilities</RootNamespace>
+    <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>disable</Nullable>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
   </PropertyGroup>
+
+  <!-- Valheim path — set VALHEIM_INSTALL env var or change the fallback below -->
+  <PropertyGroup>
+    <ValheimInstall Condition="'$(VALHEIM_INSTALL)' != ''">$(VALHEIM_INSTALL)</ValheimInstall>
+    <ValheimInstall Condition="'$(ValheimInstall)' == ''">D:\Steam\steamapps\common\Valheim</ValheimInstall>
+    <ValheimManaged>$(ValheimInstall)\valheim_Data\Managed</ValheimManaged>
+    <ValheimCore>$(ValheimInstall)\BepInEx\core</ValheimCore>
+  </PropertyGroup>
+
+  <!-- BepInEx + Harmony via NuGet (compile-time only, not copied to output) -->
   <ItemGroup>
-    <Compile Include="BeehiveUtilities.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+    <PackageReference Include="BepInEx.Core" Version="5.*" ExcludeAssets="runtime" />
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.*" PrivateAssets="all" />
   </ItemGroup>
+
+  <!-- Game assemblies — publicized automatically by AssemblyPublicizer.MSBuild -->
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="0Harmony, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\core\0Harmony.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="assembly_valheim">
+      <HintPath>$(ValheimManaged)\assembly_valheim.dll</HintPath>
+      <Private>false</Private>
+      <Publicize>true</Publicize>
     </Reference>
     <Reference Include="assembly_guiutils">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\assembly_guiutils.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>$(ValheimManaged)\assembly_guiutils.dll</HintPath>
+      <Private>false</Private>
     </Reference>
-    <Reference Include="assembly_valheim, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\publicized_assemblies\assembly_valheim.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="UnityEngine">
+      <HintPath>$(ValheimManaged)\UnityEngine.dll</HintPath>
+      <Private>false</Private>
     </Reference>
-    <Reference Include="BepInEx, Version=5.4.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\core\BepInEx.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ValheimManaged)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\unstripped_corlib\UnityEngine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.InputLegacyModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\unstripped_corlib\UnityEngine.InputLegacyModule.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="SoftReferenceableAssets">
+      <HintPath>$(ValheimManaged)\SoftReferenceableAssets.dll</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\plugins\$(ProjectName).dll"</PostBuildEvent>
-  </PropertyGroup>
+
+  <!-- Auto-deploy after build if Valheim is installed -->
+  <Target Name="CopyToPlugins" AfterTargets="Build"
+          Condition="Exists('$(ValheimCore)\BepInEx.dll')">
+    <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll"
+          DestinationFolder="$(ValheimInstall)\BepInEx\plugins\" />
+    <Message Text="Deployed: $(ValheimInstall)\BepInEx\plugins\$(AssemblyName).dll" Importance="high" />
+  </Target>
+
 </Project>

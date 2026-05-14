@@ -25,6 +25,10 @@ If you have any suggestions, feel free to let me know!
 
 ## Changelog
 
+#### v1.1.0.1 [ARH];
+* Fix CoA — Mistlands compatibility
+* Fix Ignore Biom option
+
 #### v1.1.0;
 * Made 'Minutes Per Creation' a double instead of an int so you can do less then a minute
 * Added a config option to remove the biome check to allow bees anywhere
@@ -37,13 +41,3 @@ If you have any suggestions, feel free to let me know!
 
 #### v1.0.0;
 * Initial release
-
-## Images
-
-![Showing](https://fivem.fail/gta5/Ped/SetIkTarget/c7X1yAKfOe.png)
-
-[Discord Support](https://discord.gg/pTGSu8R7DW)
-
-## Affiliate Link
-Want a Valheim BepInEx server deployed in seconds?
-[![ZAP-Hosting Gameserver and Webhosting](https://zap-hosting.com/interface/download/images.php?type=affiliate&id=99507)](https://zap-hosting.com/smallo)

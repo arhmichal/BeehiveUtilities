@@ -1,2 +1,11 @@
 .vscode/
-
+.claude/
+CLAUDE.md
+TODO.md
+environment.md
+project-context.md
+deps/*
+.dotnet/
+tools/publicizer/
+tools/downloads/
+artifacts/logs/
