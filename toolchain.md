@@ -35,10 +35,10 @@ Game DLLs (`assembly_valheim.dll`, `UnityEngine.dll`, etc.) are compile-time ref
 
 Declared in `.csproj`, downloaded by `dotnet restore`. Not copied to output — players have them from BepInExPack.
 
-| Package | Version | Role |
-|---|---|---|
-| `BepInEx.Core` | `5.*` | `BepInEx.dll`, `0Harmony.dll` as compile-time refs |
-| `BepInEx.Analyzers` | `1.*` | Roslyn analyzers — highlights BepInEx-specific errors in IDE |
+| Package                              | Version | Role                                                          |
+| ------------------------------------ | ------- | ------------------------------------------------------------- |
+| `BepInEx.Core`                       | `5.*`   | `BepInEx.dll`, `0Harmony.dll` as compile-time refs            |
+| `BepInEx.Analyzers`                  | `1.*`   | Roslyn analyzers — highlights BepInEx-specific errors in IDE  |
 | `BepInEx.AssemblyPublicizer.MSBuild` | `0.4.*` | Automatically publicizes `assembly_valheim.dll` at build time |
 
 BepInEx feed (`https://nuget.bepinex.dev/v3/index.json`) declared in `BeehiveUtilities/NuGet.Config` — BepInEx packages are not on nuget.org.
